@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: solving-pypsa
+  name: solving-linopy
   namespace: bucket-fuse
   labels:
     jobgroup: prepared-solver
@@ -16,28 +16,28 @@ spec:
       labels:
         jobgroup: prepared-solver
     spec:
-      serviceAccountName: bucket-account
+      serviceAccountName: bucket-fuse-account
       restartPolicy: Never
       containers:
         - name: cal-img
-          image: akshatmittaloet/demo-pypsa:cal
+          image: akshatmittaloet/linotest:v0.1
           volumeMounts:
             - name: gcs-fuse-csi-inline-1
               mountPath: "/input"
             - name: gcs-fuse-csi-inline-2
-              mountPath: "/results"
-          command: ["/bin/bash"]
-          args: ["-c","snakemake --cores 1 calculate_sum"]
+              mountPath: "/result"
+          # command: ["/bin/bash"]
+          # args: [ "python" , "execute.py" ]
       volumes:
       - name: gcs-fuse-csi-inline-1
         csi:
           driver: gcsfuse.csi.storage.gke.io
           volumeAttributes:
-            bucketName: cal-cluster-input
+            bucketName: templino
             mountOptions: "debug_fuse,debug_fs,debug_gcs,implicit-dirs,only-dir=input"
       - name: gcs-fuse-csi-inline-2
         csi:
           driver: gcsfuse.csi.storage.gke.io
           volumeAttributes:
-            bucketName: cal-cluster-input
-            mountOptions: "debug_fuse,debug_fs,debug_gcs,implicit-dirs,only-dir=results"
+            bucketName: templino
+            mountOptions: "debug_fuse,debug_fs,debug_gcs,implicit-dirs,only-dir=result"
