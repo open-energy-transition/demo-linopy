@@ -1,1 +1,3 @@
 .vscode
+.result/results.nc
+gurobi.lic
