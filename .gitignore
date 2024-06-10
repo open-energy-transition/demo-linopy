@@ -1,3 +1,4 @@
 .vscode
 .result/results.nc
 gurobi.lic
+execute copy.py
