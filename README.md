@@ -16,10 +16,16 @@
     ```sh
     snakemake -call results/test-elec/networks/elec_s_6_ec_lcopt_.nc --configfile config/test/config.electricity.yaml
     ```
-7. Use Docker to build the Linopy Docker image. Docker commands are in the Dockerfile, play with the image.
-8. Copy the dumped model `.nc` file to the input directory of this repo and rename it as `test.nc`.
-9. Use Docker volume mount command to run the image and get results.
-10. Just like step 4 use [PyPSA code snippet](https://github.com/PyPSA/PyPSA/pull/927) to modify PyPSA to read the resulting model from step 9.
-11. Redo step 5 and 6.
-12. Check objective values in both cases.
+7. clone this repo 
+8. Use Docker to build the Linopy Docker image. Docker commands are in the Dockerfile, play with the image.
+    ```sh
+    docker build -t linotest .
+    docker run -it --entrypoint /bin/bash linotest
+    docker run --name democontainer -v "$(pwd)"/input:/input -v "$(pwd)"/result:/result linotest
+    ```
+9. Copy the dumped model `.nc` file to the input directory of this repo and rename it as `test.nc`.
+10. Use Docker volume mount command to run the image and get results.
+11. Just like step 4 use [PyPSA code snippet](https://github.com/PyPSA/PyPSA/pull/927) to modify PyPSA to read the resulting model from step 9.
+12. Redo step 5 and 6.
+13. Check objective values in both cases.
     
