@@ -13,12 +13,11 @@ ENV PATH /opt/conda/envs/linotest/bin:$PATH
 
 ENTRYPOINT [ "python" , "execute.py" ]
 
-# docker build -t demo-pypsa .
+# docker build -t linotest .
+# sudo docker run -it --entrypoint /bin/bash linotest
+# docker run --name democontainer -v "$(pwd)"/input:/input -v "$(pwd)"/result:/result
 
-# docker run --name democontainer -v "$(pwd)"/input:/input -v "$(pwd)"/results:/results 
 
-# sudo docker run -it --entrypoint /bin/bash demo-pypsa
 
-# sudo docker run -it -v ~/prepared_networks:/prepared_networks --entrypoint /bin/bash demo-pypsa -c "snakemake --cores 1 prepare_networks"
 
-# sudo rm -r results/
+
