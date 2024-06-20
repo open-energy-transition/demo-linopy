@@ -11,6 +11,8 @@ RUN conda env create -f env.yaml
 RUN echo "source activate linotest" > ~/.bashrc
 ENV PATH /opt/conda/envs/linotest/bin:$PATH
 
+RUN pip install highspy
+
 ENTRYPOINT [ "python" , "execute.py" ]
 
 # docker build -t linotest .
